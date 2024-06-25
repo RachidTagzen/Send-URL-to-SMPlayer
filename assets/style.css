@@ -1,0 +1,76 @@
+body {
+  font-size: 14px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  background-color: #fff;
+  color: #4d5156;
+  margin: auto;
+  margin-top: 20px;
+  width: min(100% - 2rem, 70rem);
+}
+
+
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-group {
+  display: grid;
+  /* display: flex; */
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+label {
+  text-align: left;
+  font-weight: bold;
+  /* width: 150px;
+  margin-right: 10px; */
+}
+
+
+select {
+  color: #444;
+  background-image: linear-gradient(rgb(237, 237, 237), rgb(237, 237, 237) 38%, rgb(222, 222, 222));
+  box-shadow: rgba(0, 0, 0, 0.08) 0 1px 0, rgba(255, 255, 255, 0.75) 0 1px 2px inset;
+  text-shadow: rgb(240, 240, 240) 0 1px 0;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: solid 1px rgba(0, 0, 0, 0.25);
+  max-width: 150px;
+  border-radius: 4px;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 5px;
+  outline: none;
+} 
+
+input[type=text]:focus {
+  background-color: #feffc1;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 20px;
+    max-width: 60px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    border: solid 1px rgba(0, 0, 0, 0.25);
+}
+
+button:hover {background-color: #3e8e41}
+
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
