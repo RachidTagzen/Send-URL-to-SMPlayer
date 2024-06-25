@@ -26,7 +26,7 @@
     "default_icon": "assets/logo.svg",
     "default_title": "Send URL to SMPlayer"
   },
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "af5bc4c0-4eec-4b1b-b30b-bd83d16436b9@SendUrlToSMPlayer"
     }
