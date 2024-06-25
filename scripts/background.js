@@ -5,7 +5,7 @@ browser.browserAction.onClicked.addListener((tab) => {
     browser.storage.sync.get(['speed', 'smplayerPath']).then((result) => {
         const speed = result.speed || 'normal_speed';
         const smplayerPath = result.smplayerPath || 'smplayer'; // Default to 'smplayer' if no path is set
-        console.info("SMPlayer Path : ", smplayerPath); 
+        console.info("SMPlayer Path : ", smplayerPath);
 
         const message = { url: currentUrl, command: speed, smplayerPath };
 
@@ -27,7 +27,7 @@ browser.browserAction.onClicked.addListener((tab) => {
         // Show a success notification immediately after sending the native message
         browser.notifications.create({
             type: "basic",
-            iconUrl: browser.extension.getURL("assets/logo.svg"),
+            iconUrl: browser.runtime.getURL("assets/logo.svg"),
             title: "SMPlayer Extension",
             message: "URL sent to SMPlayer."
         });
