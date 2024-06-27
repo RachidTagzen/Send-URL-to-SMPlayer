@@ -74,3 +74,35 @@ button:active {
   box-shadow: 0 2px #666;
   transform: translateY(2px);
 }
+
+pre {
+  line-height: 1.5em;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  padding: 0 3px;
+}
+
+ol {
+  line-height: 2em;
+  height: auto;
+}
+
+.highlight {
+  background-color: #e5f2ff;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+
+.note {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #F8F4D5;
+  color: black;
+  padding-top: 10px;
+  padding-left: 10px;
+}

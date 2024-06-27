@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SMPlayer Extension Instructions</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<script src="./scripts/options.js"></script>
+	</head>
+	<body>
+		<div class="container">
+            <h2>
+                Why is the installation of a native client necessary for this extension to function properly?
+            </h2>
+            <p>
+                Extensions that are developed using WebExtension technology do not have the capability to access the OS level. Therefore, it's impossible to launch the SMPlayer application directly from an extension without utilizing a native wrapper.
+            </p>
+            <p>
+                This native client, built on Python, enables the execution of privileged code within the extension.
+            </p>
+
+
+            <hr style="margin: 60px 0 20px 0;">
+            <h2>
+                Requirements :
+            </h2>
+            <ul style="line-height: 2em;">
+                <li><a href="https://www.smplayer.info/" target="_blank" rel="noopener noreferrer">SMPlayer</a></li>
+                <li><a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer">Python</a></li>
+              </ul>
+
+
+            <hr style="margin: 60px 0 20px 0;">
+            <h2>
+                Instructions :
+            </h2>
+
+			<ol>
+				<li style="margin-bottom: 3em;">
+					<p>Download the local server script <a href="https://github.com/RachidTagzen/Send-URL-to-SMPlayer/releases/tag/v1.0"><span class="bold">smplayer_opener.py</span></a> and move it to any location you like.</p>
+                    <p>Otherwise, if you don't want to download, you still have to create this <span class="bold">smplayer_opener.py</span> file in the location of your choice, then copy this code there :</p>
+
+<pre>
+    import sys
+    import json
+    import subprocess
+    
+    def send_to_smplayer(url, command, smplayer_path):
+        if command:
+            full_command = [smplayer_path, '-actions', command, url]
+        else:
+            full_command = [smplayer_path, url]
+    
+        # Execute the command and capture the output
+        try:
+            subprocess.run(full_command, check=True)
+            send_message({'status': 'success'})
+        except subprocess.CalledProcessError as e:
+            send_message({'status': 'error', 'message': str(e)})
+    
+    def read_message():
+        raw_length = sys.stdin.read(4)
+        if len(raw_length) == 0:
+            sys.exit(0)
+        message_length = int.from_bytes(raw_length.encode('utf-8'), byteorder='little')
+        message = sys.stdin.read(message_length)
+        return json.loads(message)
+    
+    def send_message(message):
+        encoded_message = json.dumps(message).encode('utf-8')
+        message_length = len(encoded_message)
+        if message_length > 1048576:  # Check if the message exceeds the limit
+            message = {'status': 'error', 'message': 'Response too large'}
+            encoded_message = json.dumps(message).encode('utf-8')
+        sys.stdout.write(len(encoded_message).to_bytes(4, byteorder='little').decode('utf-8'))
+        sys.stdout.write(encoded_message.decode('utf-8'))
+        sys.stdout.flush()
+    
+    if __name__ == '__main__':
+        try:
+            message = read_message()
+            url = message.get('url')
+            command = message.get('command', '')
+            smplayer_path = message.get('smplayerPath', 'smplayer')  # Default to 'smplayer' if not provided
+            if url:
+                send_to_smplayer(url, command, smplayer_path)
+            else:
+                send_message({'status': 'error', 'message': 'No URL provided'})
+        except Exception as e:
+            send_message({'status': 'error', 'message': str(e)})
+</pre>
+
+                    <div class="note">
+                        <img src="../assets/warning.svg" alt="Warning" width="60" height="60"></i>
+                        <div>
+                            <p style="margin: 0 0 0 20px;">In linux, don't forget to allow executable permissions to the script. You can do that using a terminal : </p>
+                            <p style="margin: 0 0 0 20px; font-weight: bold;">chmod u+x /path/to/smplayer_opener.py</p>
+                        </div>
+                    </div>
+
+
+				</li>
+
+                <li style="margin-bottom: 3em;">
+                    Create a native messaging host file <span class="bold">send_to_smplayer.json</span> within the appropriate directory:
+                    <ul>
+                        <li>On Linux <span class="bold">(Tested)</span> : <pre style="margin-top: 0;">~/.mozilla/native-messaging-hosts/</pre></li>
+                        <li>On Windows <span class="bold">(Not Tested)</span> : <pre style="margin-top: 0;">C:\Users\<your-username>\AppData\Roaming\Mozilla\NativeMessagingHosts\</pre></li>
+                      </ul>
+                </li>
+
+
+				<li style="margin-bottom: 3em;">
+					Copy this JSON script within the <span class="bold">send_to_smplayer.json</span> file , and replace "<span class="bold">/path/to/smplayer_opener.py</span>" with the full path of <span class="bold">smplayer_opener.py</span> :
+
+<pre>
+{
+    <span style="color: #0550ae;">"name"</span>: <span>"send_to_smplayer"</span>,
+    <span style="color: #0550ae;">"description"</span>: <span>"Send URL to SMPlayer"</span>,
+    <span style="color: #0550ae;">"path"</span>: "<span class="bold">/path/to/smplayer_opener.py</span>",
+    <span style="color: #0550ae;">"type"</span>: <span>"stdio"</span>,
+    <span style="color: #0550ae;">"allowed_extensions"</span>: [ <span>"af5bc4c0-4eec-4b1b-b30b-bd83d16436b9@SendUrlToSMPlayer"</span> ]
+}
+</pre>
+
+				</li>
+			</ol>
+
+		</div>
+	</body>
+</html>

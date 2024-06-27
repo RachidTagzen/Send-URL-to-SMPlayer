@@ -33,3 +33,14 @@ browser.browserAction.onClicked.addListener((tab) => {
         });
     });
 });
+
+browser.runtime.onInstalled.addListener((details) => {
+  if (details.reason === 'install') {
+    // Open the welcome page after the extension is installed
+    browser.tabs.create({
+      url: browser.runtime.getURL('html/instructions.html'),
+    });
+  } else if (details.reason === 'update') {
+    // You can also add code here to handle updates to the extension
+  }
+});
