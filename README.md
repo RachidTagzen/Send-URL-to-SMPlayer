@@ -6,7 +6,7 @@ It is also useful for users who have installed SMPlayer in a non-standard locati
 
 
 ## Download
-[<img src="./assets/firefox_addons.png">](https://addons.mozilla.org/en-US/firefox/)
+[<img src="./assets/firefox_addons.png">](https://addons.mozilla.org/en-US/firefox/addon/send-url-to-smplayer/)
 
 ## Features
 
@@ -25,9 +25,9 @@ It is also useful for users who have installed SMPlayer in a non-standard locati
 
 ## Setting Up Local Server Script & Native Messaging
 
-1. Copy the local server script `smplayer_opener.py` to any location you want.
+1.Download the local server script [`smplayer_opener.py`](https://github.com/RachidTagzen/Send-URL-to-SMPlayer/blob/main/smplayer_opener.py) and copy it to any location you want.
 
-2. Create `send_to_smplayer.json` a native messaging host file with the following content:
+2. Create `send_to_smplayer.json` a native messaging host file with the following content, and replace "/path/to/smplayer_opener.py" with the path of `smplayer_opener.py`:
     ```json
     {
       "name": "send_to_smplayer",
