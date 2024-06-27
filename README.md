@@ -80,7 +80,7 @@ Otherwise, if you don't want to download, you still have to create this smplayer
 > In linux, don't forget to allow executable permissions to the script.
 > You can do that using a terminal : `chmod u+x /path/to/smplayer_opener.py`
 
-3.  Create a native messaging host file `send_to_smplayer.json` within the appropriate directory:
+2.  Create a native messaging host file `send_to_smplayer.json` within the appropriate directory:
     - On Linux ***(Tested)*** : `~/.mozilla/native-messaging-hosts/`
     - On Windows ***(Not Tested)*** : `C:\Users\<your-username>\AppData\Roaming\Mozilla\NativeMessagingHosts\`
 3. Copy this JSON script into the `send_to_smplayer.json` file , and replace "`/path/to/smplayer_opener.py`" with the full path of `smplayer_opener.py` : 
